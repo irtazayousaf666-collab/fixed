@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northbound Boots — Handcrafted Leather Boots</title>
+<style>
+:root{--brown:#4b2e1e;--tan:#a9744b;--cream:#f6efe6;--dark:#211711;--accent:#c96f3b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Arial,sans-serif;background:var(--cream);color:var(--dark);line-height:1.6;-webkit-text-size-adjust:100%}
+img{max-width:100%;display:block}
+.container{max-width:1150px;margin:auto;padding:0 20px}
+header{position:sticky;top:0;background:rgba(246,239,230,.96);backdrop-filter:blur(8px);border-bottom:1px solid #e2d3c2;z-index:100}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:12px}
+.logo{font-weight:800;font-size:1.35rem;color:var(--brown);white-space:nowrap}
+.logo span{color:var(--accent)}
+.desktop-menu{display:flex;gap:24px;list-style:none}
+.desktop-menu a{text-decoration:none;color:var(--dark);font-weight:600}
+.desktop-menu a:hover{color:var(--accent)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.btn{display:inline-block;background:var(--brown);color:#fff;padding:11px 22px;border-radius:30px;text-decoration:none;font-weight:700;border:0;cursor:pointer;transition:.2s;font-size:.95rem}
+.btn:hover{background:var(--accent);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--brown);border:2px solid var(--brown)}
+.btn-outline:hover{background:var(--brown);color:#fff}
+.menu-btn{display:none;width:44px;height:44px;border:1px solid #d9c8b6;background:#fff;border-radius:12px;font-size:1.3rem;cursor:pointer;color:var(--brown)}
+.mobile-overlay{position:fixed;inset:0;background:rgba(33,23,17,.97);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center}
+.mobile-overlay.open{display:flex}
+.mobile-overlay a{color:#fff;text-decoration:none;font-size:1.35rem;font-weight:700}
+.mobile-overlay a:hover{color:#ffb277}
+.close-btn{position:absolute;top:22px;right:22px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;font-size:1.4rem;cursor:pointer}
+.hero{background:linear-gradient(120deg,#2b1a11,#5a3623 55%,#8a5a37);color:#fff;padding:90px 0 110px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-100px;bottom:-120px;width:430px;height:430px;border-radius:50%;background:rgba(255,255,255,.07)}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;position:relative}
+.eyebrow{letter-spacing:3px;text-transform:uppercase;font-size:.75rem;color:#f0c79b;font-weight:700}
+.hero h1{font-size:clamp(2.1rem,5vw,4rem);line-height:1.08;margin:14px 0 18px;font-weight:800}
+.hero p{max-width:520px;font-size:1.05rem;color:#f4e4d5;margin-bottom:26px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero-card{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);border-radius:22px;padding:24px}
+.hero-card h3{font-size:1.15rem;margin-bottom:12px}
+.stat{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,.22);font-size:.95rem}
+.stat:last-child{border:0}
+.stat strong{color:#ffcf9a}
+.features{padding:70px 0}
+.section-title{text-align:center;max-width:640px;margin:0 auto 40px}
+.section-title h2{font-size:clamp(1.7rem,3vw,2.4rem);color:var(--brown)}
+.section-title p{color:#6d5a4b;margin-top:10px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border-radius:18px;padding:26px;box-shadow:0 10px 30px rgba(75,46,30,.08);border:1px solid #eee0d2}
+.card .icon{width:50px;height:50px;border-radius:14px;background:#f3e2d0;display:grid;place-items:center;font-size:1.4rem;margin-bottom:14px}
+.card h3{color:var(--brown);margin-bottom:8px}
+.products{padding:10px 0 80px}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.product{background:#fff;border-radius:18px;overflow:hidden;border:1px solid #eee0d2;transition:.25s}
+.product:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(75,46,30,.15)}
+.product-img{height:220px;background:#efe2d4}
+.product-img img{width:100%;height:100%;object-fit:cover}
+.product-body{padding:16px}
+.product h3{font-size:1.02rem;color:var(--brown)}
+.price{font-weight:800;color:var(--accent);margin:6px 0 12px}
+.price s{color:#9a8676;font-weight:400;margin-right:7px}
+.product .btn{width:100%;text-align:center;padding:10px 16px}
+.cta{background:var(--brown);color:#fff;text-align:center;padding:70px 0}
+.cta h2{font-size:clamp(1.7rem,3.5vw,2.5rem);margin-bottom:10px}
+.cta p{color:#f0d9c4;margin-bottom:24px}
+.cta .btn{background:#fff;color:var(--brown)}
+footer{background:var(--dark);color:#d8c8ba;padding:45px 0 22px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px;margin-bottom:25px}
+footer h4{color:#fff;margin-bottom:10px}
+footer a{color:#d8c8ba;text-decoration:none;display:block;margin-bottom:7px}
+footer a:hover{color:#ffb277}
+.copyright{border-top:1px solid rgba(255,255,255,.15);padding-top:16px;text-align:center;font-size:.85rem}
+@media(max-width:900px){.desktop-menu{display:none}.menu-btn{display:grid;place-items:center}.hero-grid,.cards,.footer-grid{grid-template-columns:1fr}.product-grid{grid-template-columns:repeat(2,1fr)}.hero{padding:70px 0 80px}}
+@media(max-width:520px){.product-grid{grid-template-columns:1fr}.product-img{height:250px}.nav .btn{display:none}.hero-actions .btn{flex:1;text-align:center}}
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <div class="logo">North<span>bound</span> Boots</div>
+    <ul class="desktop-menu"><li><a href="#men">Men</a></li><li><a href="#women">Women</a></li><li><a href="#work">Work Boots</a></li><li><a href="#sale">Sale</a></li><li><a href="#contact">Contact</a></li></ul>
+    <div class="nav-actions"><a href="#shop" class="btn">Shop Boots</a><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button></div>
+  </div>
+</header>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="close-btn" id="closeBtn" aria-label="Close menu">✕</button>
+  <a href="#men">Men</a><a href="#women">Women</a><a href="#work">Work Boots</a><a href="#sale">Sale</a><a href="#contact">Contact</a>
+  <a href="#shop" class="btn">Shop Boots</a>
+</div>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">Built for every path</div>
+      <h1>Boots made to move, work, and last.</h1>
+      <p>Premium full-grain leather, comfortable cushioned soles, and timeless craftsmanship. Find your perfect pair for city streets, trails, and the job site.</p>
+      <div class="hero-actions"><a href="#shop" class="btn">Shop New Arrivals</a><a href="#" class="btn btn-outline">Find Your Size</a></div>
+    </div>
+    <div class="hero-card">
+      <h3>Why customers choose us</h3>
+      <div class="stat"><span>Free shipping</span><strong>Orders over $50</strong></div>
+      <div class="stat"><span>30-day returns</span><strong>No questions asked</strong></div>
+      <div class="stat"><span>Handcrafted leather</span><strong>Premium quality</strong></div>
+      <div class="stat"><span>4.8/5 rating</span><strong>12,000+ reviews</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="men">
+  <div class="container">
+    <div class="section-title"><h2>Comfort that goes the distance</h2><p>Every pair is designed for durability, support, and all-day wear.</p></div>
+    <div class="cards">
+      <div class="card"><div class="icon">🥾</div><h3>Full-Grain Leather</h3><p>Soft, durable leather that develops a rich character with every wear.</p></div>
+      <div class="card"><div class="icon">👣</div><h3>All-Day Comfort</h3><p>Cushioned insoles and supportive outsoles keep you comfortable from morning to night.</p></div>
+      <div class="card"><div class="icon">🛠️</div><h3>Built to Last</h3><p>Reinforced stitching and rugged construction for work, travel, and adventure.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="shop">
+  <div class="container">
+    <div class="section-title" id="women"><h2>Best sellers</h2><p>Popular styles loved by walkers, workers, and weekend explorers.</p></div>
+    <div class="product-grid" id="work">
+      <div class="product"><div class="product-img"><img loading="lazy" src="https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/38ae0ead-0e66-59fe-a894-bd1ad-0ade96af1083.jpg" alt="Brown leather hiking boots" onerror="this.onerror=null;this.src='https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/a09e9c31-5797-52f6-b865-13360f887e58/abdd9300-450e-5ac1-8d62-d59e6323f431.jpg'"></div><div class="product-body"><h3>Trailmaster Hiker</h3><div class="price"><s>$89</s>$49</div><a href="#" class="btn btn-outline">View</a></div></div>
+      <div class="product"><div class="product-img"><img loading="lazy" src="https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/a09e9c31-5797-52f6-b865-13360f887e58/abdd9300-450e-5ac1-8d62-d59e6323f431.jpg" alt="Brown leather boots"></div><div class="product-body"><h3>Heritage Chelsea</h3><div class="price"><s>$79</s>$42</div><a href="#" class="btn btn-outline">View</a></div></div>
+      <div class="product"><div class="product-img"><img loading="lazy" src="https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/b7889811-02b0-55a3-8add-54226743069b/b4195aa9-0509-54e9-9450-b75287b2b3e4.jpg" alt="Brown leather work boots" onerror="this.onerror=null;this.src='https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/a09e9c31-5797-52f6-b865-13360f887e58/abdd9300-450e-5ac1-8d62-d59e6323f431.jpg'"></div><div class="product-body"><h3>Worksite Pro</h3><div class="price"><s>$99</s>$55</div><a href="#" class="btn btn-outline">View</a></div></div>
+      <div class="product"><div class="product-img"><img loading="lazy" src="https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/6326a643-6c90-5302-81db-01ae8ba2e634/e0768043-f16d-5667-a3cd-c51a212d68ac.jpg" alt="Tan leather hiking boots"></div><div class="product-body"><h3>Desert Ranger</h3><div class="price"><s>$69</s>$38</div><a href="#" class="btn btn-outline">View</a></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="sale">
+  <div class="container"><h2>Step into your next adventure</h2><p>Get 10% off your first pair when you join our newsletter.</p><a href="#" class="btn">Claim Your Discount</a></div>
+</section>
+
+<footer id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div><div class="logo" style="color:#fff">North<span>bound</span> Boots</div><p>Quality boots for work, travel, and everyday life.</p></div>
+      <div><h4>Shop</h4><a href="#men">Men</a><a href="#women">Women</a><a href="#work">Work Boots</a><a href="#sale">Sale</a></div>
+      <div><h4>Support</h4><a href="#">Size Guide</a><a href="#">Shipping</a><a href="#">Returns</a><a href="#">Contact Us</a></div>
+    </div>
+    <div class="copyright">© 2026 Northbound Boots. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+const overlay=document.getElementById('mobileOverlay');
+document.getElementById('menuBtn').addEventListener('click',()=>{overlay.classList.add('open');document.body.style.overflow='hidden'});
+function closeMenu(){overlay.classList.remove('open');document.body.style.overflow=''}
+document.getElementById('closeBtn').addEventListener('click',closeMenu);
+overlay.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+</script>
+</body>
+</html>
